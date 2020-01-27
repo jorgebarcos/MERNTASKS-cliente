@@ -87,6 +87,14 @@ a {
   display: block;
   background-color: transparent;
 }
+.btn-eliminar {
+  background-color: var(--blanco);
+  color: var(--negro);
+}
+
+.btn-eliminar:hover {
+  background: var(--gris1);
+}
 
 @media (min-width: 768px) {
   .contenedor-app {
