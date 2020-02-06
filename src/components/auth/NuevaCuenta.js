@@ -4,14 +4,16 @@ import AlertaContext from '../../context/alertas/alertaContext';
 
 import AuthContext from '../../context/autenticacion/authContext';
 
-const authContext = useContext(AuthContext);
-const { registrarUsuario } = authContext;
+
 
 const NuevaCuenta = () => {
 
     // Extraer los valoes del context
     const alertaContext = useContext(AlertaContext);
     const { alerta, mostrarAlerta} = alertaContext;
+    
+    const authContext = useContext(AuthContext)
+    const { registrarUsuario} = authContext;
 
     // State para iniciar sesión
     const [usuario, guardarUsuario] = useState({
