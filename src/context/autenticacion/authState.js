@@ -1,10 +1,10 @@
-import React, {useReducer} from 'react';
+import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
 
 import clienteAxios from '../../config/axios';
-
-import { 
+import tokenAuth from '../../config/token';
+import {
     REGISTRO_EXITOSO,
     REGISTRO_ERROR,
     OBTENER_USUARIO,
@@ -50,32 +50,54 @@ const AuthState = props => {
     }
 
     // Retorna el usuario autenticado
-    const usuarioAutenticado = async () => {
-        const token = localStorage.getItem('token');
-        if(token) {
-            // TODO: Función para enviar el token por headers
-        }
+    const usuarioAutenticado = async() => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                tokenAuth(token);
+            }
 
+            try {
+                const respuesta = await clienteAxios.get('/api/auth');
+                // console.log(respuesta);
+                dispatch({
+                    type: OBTENER_USUARIO,
+                    payload: respuesta.data.usuario
+                })
+            } catch (error) {
+
+                dispatch({
+                    type: LOGIN_ERROR
+                })
+            }
+        }
+        // Cuando el usuario inicia sesión
+    const iniciarSesion = async datos => {
         try {
-            const respuesta = await clienteAxios.get('/api/auth');
-            console.log(respuesta);
+            const repuesta = await clienteAxios.post('/api/auth', datos);
+
         } catch (error) {
+            console.log(error.response.data.msg);
+            const alerta = {
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            }
             dispatch({
-                type: LOGIN_ERROR
+                type: LOGIN_ERROR,
+                payload: alerta
             })
         }
     }
 
-    return (
-        <AuthContext.Provider
-            value={{
+    return ( <AuthContext.Provider value = {
+            {
                 token: state.token,
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
-                registrarUsuario
-            }}
-        >{props.children}
+                registrarUsuario,
+                iniciarSesion
+            }
+        } > { props.children }
 
         </AuthContext.Provider>
     )
