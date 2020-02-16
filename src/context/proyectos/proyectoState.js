@@ -77,11 +77,16 @@ const ProyectoState = props => {
     }
 
     // Selecciona el Proyecto que el usuario dio click
-    const proyectoActual = proyectoId => {
-        dispatch({
-            type: PROYECTO_ACTUAL,
-            payload: proyectoId
-        })
+    const proyectoActual = async proyectoId => {
+        try {
+            await clienteAxios.delete(`/api/proyectos/${proyectoId}`);
+            dispatch({
+                type: PROYECTO_ACTUAL,
+                payload: proyectoId
+            })
+        } catch (error) {
+            
+        }
     }
 
     // Elimina un proyecto
