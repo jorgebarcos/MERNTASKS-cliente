@@ -12,16 +12,17 @@ export default (state, action) => {
         case REGISTRO_EXITOSO:
         case LOGIN_EXITOSO:
             localStorage.setItem('token', action.payload.token);
-
             return {
                 ...state,
                 autenticado: true,
-                mensaje: null
+                mensaje: null,
+                cargando: false
             }
         case OBTENER_USUARIO:
             return {
                 ...state,
-                usuario: action.payload
+                usuario: action.payload,
+                cargando: false
             }
         case CERRAR_SESION:
         case LOGIN_ERROR:
@@ -32,7 +33,8 @@ export default (state, action) => {
                 token: null,
                 usuario: null,
                 autenticado: null,
-                mensaje: action.payload
+                mensaje: action.payload,
+                cargando: false
             }
 
         default:
