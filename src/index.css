@@ -82,7 +82,7 @@ a {
   background-color: var(--gris2);
 }
 .btn-blank {
-  color: white;
+
   margin: 0;
   padding: 0;
   display: block;
@@ -95,6 +95,9 @@ a {
 
 .btn-eliminar:hover {
   background: var(--gris1);
+}
+.cerrar-sesion {
+  color: white;
 }
 
 @media (min-width: 768px) {
