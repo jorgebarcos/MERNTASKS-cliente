@@ -65,6 +65,7 @@ const AuthState = props => {
                     payload: respuesta.data.usuario
                 })
             } catch (error) {
+                console.log(error.response);
 
                 dispatch({
                     type: LOGIN_ERROR
@@ -104,8 +105,7 @@ const AuthState = props => {
         })
     }
 
-    return ( <AuthContext.Provider value = {
-            {
+    return ( <AuthContext.Provider value = {{
                 token: state.token,
                 autenticado: state.autenticado,
                 usuario: state.usuario,
@@ -115,8 +115,7 @@ const AuthState = props => {
                 iniciarSesion,
                 usuarioAutenticado,
                 cerrarSesion
-            }
-        } > { props.children }
+            }} >{ props.children }
 
         </AuthContext.Provider>
     )
