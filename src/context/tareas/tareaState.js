@@ -28,7 +28,7 @@ const TareaState = props => {
 
     // Obtener las tareas de un proyecto
     const obtenerTareas = async proyecto => {
-        console.log(proyecto);
+        
         try {
             const resultado = await clienteAxios.get('/api/tareas', { params: {proyecto}});
             dispatch({
